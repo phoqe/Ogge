@@ -1,6 +1,6 @@
 import Foundation
 
-struct OGObject: Codable {
+struct OGObject: Codable, Equatable {
 
     // MARK: Basic Metadata
 
@@ -11,14 +11,15 @@ struct OGObject: Codable {
 
     // MARK: Optional Metadata
 
-    let audio: URL?
-    let description: String?
-    let determiner: String?
-    let locale: String?
-    let alternateLocales: [String]?
-    let siteName: String?
-    let video: URL?
+    let audio: URL? = nil
+    let description: String? = nil
+    let determiner: String? = nil
+    let locale: String? = nil
+    let alternateLocales: [String]? = nil
+    let siteName: String? = nil
+    let video: URL? = nil
 
+    // TODO: Add custom coding key for the Open Graph format.
     enum CodingKeys: String, CodingKey {
 
         // MARK: Basic Metadata
