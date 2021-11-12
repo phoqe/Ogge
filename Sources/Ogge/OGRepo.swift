@@ -12,4 +12,14 @@ public struct OGRepo {
 
         return try OGParser.parse(html: html)
     }
+
+    public static func objectOptional(url: URL) async throws -> OGObject? {
+        let (data, _) = try await session.data(from: url)
+
+        guard let html = String(data: data, encoding: .ascii) else {
+            throw OGRepoError.invalidHTML
+        }
+
+        return try OGParser.parseOptional(html: html)
+    }
 }
