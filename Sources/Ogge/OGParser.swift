@@ -32,4 +32,30 @@ public struct OGParser {
 
         return og
     }
+
+    public static func parseOptional(
+        html: String
+    ) throws -> OGObject? {
+        let doc = try SwiftSoup.parse(html)
+
+        let ogElements = try doc.select("meta[property~=og:")
+
+        if ogElements.isEmpty() {
+            return nil
+        }
+
+        // TODO: Allow duplicate pairs.
+        let ogs = try Dictionary(ogElements.map {
+            (try $0.attr("property"), try $0.attr("content"))
+        }) { _, last in last }
+
+        if ogs.isEmpty {
+            return nil
+        }
+
+        let data = try encoder.encode(ogs)
+        let og = try decoder.decode(OGObject.self, from: data)
+
+        return og
+    }
 }
