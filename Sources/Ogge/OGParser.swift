@@ -7,9 +7,12 @@ struct OGParser {
     private static let encoder: JSONEncoder = JSONEncoder()
     private static let decoder: JSONDecoder = JSONDecoder()
 
-    static func parse(html: String) throws -> OGObject {
+    static func parse(
+        html: String
+    ) throws -> OGObject {
         let doc = try SwiftSoup.parse(html)
         let ogElements = try doc.select("meta[property~=og:")
+        // TODO: Allow duplicate pairs.
         let ogs = try Dictionary(ogElements.map {
             (try $0.attr("property"), try $0.attr("content"))
         }) { _, last in last }

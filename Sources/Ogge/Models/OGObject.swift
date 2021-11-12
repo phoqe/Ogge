@@ -11,13 +11,13 @@ struct OGObject: Codable, Equatable {
 
     // MARK: Optional Metadata
 
-    let audio: URL? = nil
-    let description: String? = nil
-    let determiner: String? = nil
-    let locale: String? = nil
-    let alternateLocales: [String]? = nil
-    let siteName: String? = nil
-    let video: URL? = nil
+    let audio: URL?
+    let description: String?
+    let determiner: String?
+    let locale: String? // TODO: Default is `en_US`.
+    let alternateLocales: [String]? // FIXME: Error when decoding, expects array but got string.
+    let siteName: String?
+    let video: URL?
 
     // TODO: Add custom coding key for the Open Graph format.
     enum CodingKeys: String, CodingKey {
@@ -38,5 +38,37 @@ struct OGObject: Codable, Equatable {
         case alternateLocales = "og:locale:alternate"
         case siteName = "og:site_name"
         case video = "og:video"
+    }
+
+    init(
+        // Basic Metadata
+        title: String,
+        type: String,
+        image: URL,
+        url: URL,
+
+        // Optional Metadata
+        audio: URL? = nil,
+        description: String? = nil,
+        determiner: String? = nil,
+        locale: String? = nil,
+        alternateLocales: [String]? = nil,
+        siteName: String? = nil,
+        video: URL? = nil
+    ) {
+        // Basic Metadata
+        self.title = title
+        self.type = type
+        self.image = image
+        self.url = url
+
+        // Optional Metadata
+        self.audio = audio
+        self.description = description
+        self.determiner = determiner
+        self.locale = locale
+        self.alternateLocales = alternateLocales
+        self.siteName = siteName
+        self.video = video
     }
 }
