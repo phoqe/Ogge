@@ -1,5 +1,5 @@
 import Foundation
 
-enum OGRepoError: Error {
+public enum OGRepoError: Error {
     case invalidHTML
 }

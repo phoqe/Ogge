@@ -3,11 +3,11 @@ import SwiftSoup
 
 // TODO: Use shared instance of parser to enable setting strict mode.
 // TODO: Remove SwiftSoup dependency.
-struct OGParser {
+public struct OGParser {
     private static let encoder: JSONEncoder = JSONEncoder()
     private static let decoder: JSONDecoder = JSONDecoder()
 
-    static func parse(
+    public static func parse(
         html: String
     ) throws -> OGObject {
         let doc = try SwiftSoup.parse(html)

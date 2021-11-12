@@ -1,6 +1,6 @@
 import Foundation
 
-struct OGObject: Codable, Equatable {
+public struct OGObject: Codable, Equatable {
 
     // MARK: Basic Metadata
 

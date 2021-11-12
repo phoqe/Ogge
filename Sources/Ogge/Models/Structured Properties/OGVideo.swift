@@ -1,6 +1,6 @@
 import Foundation
 
-struct OGVideo: Codable {
+public struct OGVideo: Codable {
     let url: URL
     let secureURL: URL?
     let type: String?

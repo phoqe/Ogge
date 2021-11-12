@@ -1,9 +1,9 @@
 import Foundation
 
-struct OGRepo {
+public struct OGRepo {
     private static let session: URLSession = URLSession.shared
     
-    static func object(url: URL) async throws -> OGObject {
+    public static func object(url: URL) async throws -> OGObject {
         let (data, _) = try await session.data(from: url)
 
         guard let html = String(data: data, encoding: .ascii) else {

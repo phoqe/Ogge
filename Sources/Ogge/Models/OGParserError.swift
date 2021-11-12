@@ -1,5 +1,5 @@
 import Foundation
 
-enum OGParserError: Error {
+public enum OGParserError: Error {
     case noHeadElement
 }
