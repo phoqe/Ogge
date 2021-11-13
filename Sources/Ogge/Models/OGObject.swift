@@ -14,12 +14,12 @@ public struct OGObject: Codable, Equatable {
     let audio: URL?
     let description: String?
     let determiner: String?
-    let locale: String? // TODO: Default is `en_US`.
-    let alternateLocales: [String]? // FIXME: Error when decoding, expects array but got string.
+    var locale: String = "en_US"
+    let alternateLocales: [String]?
     let siteName: String?
     let video: URL?
 
-    // TODO: Add custom coding key for the Open Graph format.
+    // TODO: Add custom coding key for the Open Graph format to avoid typing out the keys manually.
     enum CodingKeys: String, CodingKey {
 
         // MARK: Basic Metadata
@@ -40,6 +40,25 @@ public struct OGObject: Codable, Equatable {
         case video = "og:video"
     }
 
+    public init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+
+        // Basic Metadata
+        title = try container.decode(String.self, forKey: .title)
+        type = try container.decode(String.self, forKey: .type)
+        image = try container.decode(URL.self, forKey: .image)
+        url = try container.decode(URL.self, forKey: .url)
+
+        // Optional Metadata
+        audio = try container.decodeIfPresent(URL.self, forKey: .audio)
+        description = try container.decodeIfPresent(String.self, forKey: .description)
+        determiner = try container.decodeIfPresent(String.self, forKey: .determiner)
+        locale = try container.decodeIfPresent(String.self, forKey: .locale) ?? locale
+        alternateLocales = try container.decodeIfPresent([String].self, forKey: .alternateLocales)
+        siteName = try container.decodeIfPresent(String.self, forKey: .siteName)
+        video = try container.decodeIfPresent(URL.self, forKey: .video)
+    }
+
     init(
         // Basic Metadata
         title: String,
@@ -51,7 +70,7 @@ public struct OGObject: Codable, Equatable {
         audio: URL? = nil,
         description: String? = nil,
         determiner: String? = nil,
-        locale: String? = nil,
+        locale: String? = "en_US",
         alternateLocales: [String]? = nil,
         siteName: String? = nil,
         video: URL? = nil
@@ -66,8 +85,12 @@ public struct OGObject: Codable, Equatable {
         self.audio = audio
         self.description = description
         self.determiner = determiner
-        self.locale = locale
-        self.alternateLocales = alternateLocales
+
+        if let locale = locale {
+            self.locale = locale
+        }
+
+        self.alternateLocales = alternateLocales // FIXME: Error when decoding, expects array but got string.
         self.siteName = siteName
         self.video = video
     }

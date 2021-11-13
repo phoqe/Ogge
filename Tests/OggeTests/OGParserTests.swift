@@ -6,8 +6,9 @@ import XCTest
 class OGParserTests: XCTestCase {
     func testRequired() throws {
         let object = try OGParser.parse(html: MockProp.required)
+        let mockObject = MockObject.required
 
-        XCTAssertEqual(object, MockObject.required)
+        XCTAssertEqual(object, mockObject)
     }
 
     func testOptional() throws {
