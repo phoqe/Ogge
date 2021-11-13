@@ -1,24 +1,30 @@
 import Foundation
 import SwiftSoup
 
-// TODO: Provide options like `inferHTML` and `requireHead` to `parse`.
 // TODO: Remove SwiftSoup dependency.
 public struct OGParser {
     private static let encoder: JSONEncoder = JSONEncoder()
     private static let decoder: JSONDecoder = JSONDecoder()
 
     public static func parse(
-        html: String
+        html: String,
+        requireHead: Bool = false,
+        inferFromHTML: Bool = false
     ) throws -> OGObject {
-        let doc = try SwiftSoup.parse(html)
-        let ogElements = try doc.select("meta[property~=og:")
-        // TODO: Allow duplicate pairs.
-        let ogs = try Dictionary(ogElements.map {
-            (try $0.attr("property"), try $0.attr("content"))
-        }) { _, last in last }
-        let data = try encoder.encode(ogs)
-        let og = try decoder.decode(OGObject.self, from: data)
+        let document: Document = try SwiftSoup.parse(html)
+        let elements: Elements = try document.select("meta[property~=og:")
+        var props: [String: String] = [:]
 
-        return og
+        for element in elements {
+            let property = try element.attr("property")
+            let content = try element.attr("content")
+
+            props[property] = content
+        }
+
+        let data = try encoder.encode(props)
+        let object = try decoder.decode(OGObject.self, from: data)
+
+        return object
     }
 }
