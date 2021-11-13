@@ -10,9 +10,15 @@ public struct OGParser {
         html: String,
         requireHead: Bool = false,
         inferFromHTML: Bool = false
-    ) throws -> OGObject {
+    ) throws -> OGObject? {
         let document: Document = try SwiftSoup.parse(html)
         let elements: Elements = try document.select("meta[property~=og:")
+
+        // Don't waste any more resources.
+        if elements.isEmpty() {
+            return nil
+        }
+
         var props: [String: String] = [:]
 
         for element in elements {
@@ -20,6 +26,11 @@ public struct OGParser {
             let content = try element.attr("content")
 
             props[property] = content
+        }
+
+        // Spare the coding in favor of returning early.
+        if props.isEmpty {
+            return nil
         }
 
         let data = try encoder.encode(props)
