@@ -19,6 +19,7 @@ public struct OGParser {
             return nil
         }
 
+        // TODO: Add support for Open Graph arrays.
         var props: [String: String] = [:]
 
         for element in elements {
@@ -28,7 +29,7 @@ public struct OGParser {
             props[property] = content
         }
 
-        // Spare the coding in favor of returning early.
+        // Avoid unnecessary coding operations.
         if props.isEmpty {
             return nil
         }
