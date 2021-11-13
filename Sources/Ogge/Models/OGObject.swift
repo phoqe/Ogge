@@ -4,23 +4,23 @@ public struct OGObject: Codable, Equatable {
 
     // MARK: Basic Metadata
 
-    var title: String? = nil
-    var type: String? = nil
-    var image: URL? = nil
-    var url: URL? = nil
+    public var title: String? = nil
+    public var type: String? = nil
+    public var image: URL? = nil
+    public var url: URL? = nil
 
     // MARK: Optional Metadata
 
-    var audio: URL? = nil
-    var description: String? = nil
-    var determiner: String? = nil
-    var locale: String = "en_US"
-    var alternateLocales: [String] = []
-    var siteName: String? = nil
-    var video: URL? = nil
+    public var audio: URL? = nil
+    public var description: String? = nil
+    public var determiner: String? = nil
+    public var locale: String = "en_US"
+    public var alternateLocales: [String] = []
+    public var siteName: String? = nil
+    public var video: URL? = nil
 
     // TODO: Add custom coding key for the Open Graph format to avoid typing out the keys manually.
-    enum CodingKeys: String, CodingKey {
+    private enum CodingKeys: String, CodingKey {
 
         // MARK: Basic Metadata
 
@@ -63,7 +63,7 @@ public struct OGObject: Codable, Equatable {
         video = try container.decodeIfPresent(URL.self, forKey: .video)
     }
 
-    init(
+    public init(
         // Basic Metadata
         title: String? = nil,
         type: String? = nil,

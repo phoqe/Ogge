@@ -3,7 +3,7 @@ import Foundation
 @testable import Ogge
 
 struct MockProp {
-    static let required = """
+    static let basic = """
     <meta property="og:title" content="The Rock">
     <meta property="og:type" content="video.movie">
     <meta property="og:url" content="https://www.imdb.com/title/tt0117500">
@@ -21,7 +21,7 @@ struct MockProp {
     <meta property="og:video" content="https://example.com/bond/trailer.swf">
     """
 
-    static let requiredAndOptional = """
+    static let basicAndOptional = """
     <meta property="og:title" content="The Rock">
     <meta property="og:type" content="video.movie">
     <meta property="og:url" content="https://www.imdb.com/title/tt0117500">
