@@ -4,20 +4,20 @@ public struct OGObject: Codable, Equatable {
 
     // MARK: Basic Metadata
 
-    let title: String
-    let type: String
-    let image: URL
-    let url: URL
+    var title: String? = nil
+    var type: String? = nil
+    var image: URL? = nil
+    var url: URL? = nil
 
     // MARK: Optional Metadata
 
-    let audio: URL?
-    let description: String?
-    let determiner: String?
+    var audio: URL? = nil
+    var description: String? = nil
+    var determiner: String? = nil
     var locale: String = "en_US"
     var alternateLocales: [String] = []
-    let siteName: String?
-    let video: URL?
+    var siteName: String? = nil
+    var video: URL? = nil
 
     // TODO: Add custom coding key for the Open Graph format to avoid typing out the keys manually.
     enum CodingKeys: String, CodingKey {
@@ -65,10 +65,10 @@ public struct OGObject: Codable, Equatable {
 
     init(
         // Basic Metadata
-        title: String,
-        type: String,
-        image: URL,
-        url: URL,
+        title: String? = nil,
+        type: String? = nil,
+        image: URL? = nil,
+        url: URL? = nil,
 
         // Optional Metadata
         audio: URL? = nil,
