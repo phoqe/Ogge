@@ -7,7 +7,7 @@ public struct OGRepo {
         let (data, _) = try await session.data(from: url)
 
         guard let html = String(data: data, encoding: .ascii) else {
-            throw OGRepoError.invalidHTML
+            return nil
         }
 
         return try OGParser.parse(html: html)
