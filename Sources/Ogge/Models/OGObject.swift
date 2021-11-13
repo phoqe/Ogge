@@ -44,10 +44,10 @@ public struct OGObject: Codable, Equatable {
         let container = try decoder.container(keyedBy: CodingKeys.self)
 
         // Basic Metadata
-        title = try container.decode(String.self, forKey: .title)
-        type = try container.decode(String.self, forKey: .type)
-        image = try container.decode(URL.self, forKey: .image)
-        url = try container.decode(URL.self, forKey: .url)
+        title = try container.decodeIfPresent(String.self, forKey: .title)
+        type = try container.decodeIfPresent(String.self, forKey: .type)
+        image = try container.decodeIfPresent(URL.self, forKey: .image)
+        url = try container.decodeIfPresent(URL.self, forKey: .url)
 
         // Optional Metadata
         audio = try container.decodeIfPresent(URL.self, forKey: .audio)
