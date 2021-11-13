@@ -15,7 +15,7 @@ public struct OGObject: Codable, Equatable {
     let description: String?
     let determiner: String?
     var locale: String = "en_US"
-    let alternateLocales: [String]?
+    var alternateLocales: [String] = []
     let siteName: String?
     let video: URL?
 
@@ -54,7 +54,11 @@ public struct OGObject: Codable, Equatable {
         description = try container.decodeIfPresent(String.self, forKey: .description)
         determiner = try container.decodeIfPresent(String.self, forKey: .determiner)
         locale = try container.decodeIfPresent(String.self, forKey: .locale) ?? locale
-        alternateLocales = try container.decodeIfPresent([String].self, forKey: .alternateLocales)
+
+        if let alternateLocales = try container.decodeIfPresent(String.self, forKey: .alternateLocales) {
+            self.alternateLocales.append(alternateLocales)
+        }
+
         siteName = try container.decodeIfPresent(String.self, forKey: .siteName)
         video = try container.decodeIfPresent(URL.self, forKey: .video)
     }
@@ -71,7 +75,7 @@ public struct OGObject: Codable, Equatable {
         description: String? = nil,
         determiner: String? = nil,
         locale: String? = "en_US",
-        alternateLocales: [String]? = nil,
+        alternateLocales: [String] = [],
         siteName: String? = nil,
         video: URL? = nil
     ) {
@@ -90,7 +94,7 @@ public struct OGObject: Codable, Equatable {
             self.locale = locale
         }
 
-        self.alternateLocales = alternateLocales // FIXME: Error when decoding, expects array but got string.
+        self.alternateLocales = alternateLocales
         self.siteName = siteName
         self.video = video
     }
