@@ -4,7 +4,8 @@ import PackageDescription
 let package = Package(
     name: "Ogge",
     platforms: [
-        .macOS(.v12)
+        .macOS(.v12),
+        .iOS(.v14)
     ],
     products: [
         .library(
