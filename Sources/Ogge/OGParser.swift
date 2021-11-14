@@ -8,6 +8,7 @@ public struct OGParser {
     private static let decoder: JSONDecoder = JSONDecoder()
     private static let logger = Logger(category: String(describing: OGParser.self))
 
+    @available(iOS 15.0, *)
     public static func parse(
         html: String,
         requireHead: Bool = false,

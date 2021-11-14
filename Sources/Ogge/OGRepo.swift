@@ -4,7 +4,8 @@ import OSLog
 public struct OGRepo {
     private static let session: URLSession = URLSession.shared
     private static let logger = Logger(category: String(describing: OGRepo.self))
-    
+
+    @available(iOS 15.0, *)
     public static func object(from url: URL) async throws -> OGObject? {
         logger.trace("object(url:)")
 
