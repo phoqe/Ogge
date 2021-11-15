@@ -4,6 +4,7 @@ import XCTest
 @testable import Ogge
 
 class OGRepoTests: XCTestCase {
+    @available(macOS 12.0, *)
     func testObject() async throws {
         XCTAssertNoThrow(
             Task {
@@ -16,7 +17,7 @@ class OGRepoTests: XCTestCase {
         let object = OGRepo.object(from: MockData.exampleURL, completion: { res in
             switch res {
             case .success(let object):
-                
+
                 break
             case .failure(let error):
                 XCTAssertNil(error)

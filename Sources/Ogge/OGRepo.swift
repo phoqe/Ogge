@@ -5,7 +5,7 @@ public struct OGRepo {
     // TODO: Replace with shared user session for caching, i.e., the user mounts a session and supplies it.
     private static let session = URLSession.shared
     
-    @available(iOS 15.0, *)
+    @available(iOS 15.0, macOS 12.0, *)
     public static func object(from url: URL) async throws -> OGObject? {
         let (data, _) = try await session.data(from: url)
 
