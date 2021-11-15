@@ -2,16 +2,11 @@ import Foundation
 import OSLog
 
 public struct OGRepo {
-    // TODO: Replace with user-defined cache. Only here for development.
-    private static let session: URLSession = {
-        let config = URLSessionConfiguration.default
-
-        config.requestCachePolicy = .returnCacheDataElseLoad
-
-        return URLSession(configuration: config)
-    }()
     private static let logger = Logger(category: String(describing: OGRepo.self))
 
+    // TODO: Replace with shared user session for caching, i.e., the user mounts a session and supplies it.
+    private static let session = URLSession.shared
+    
     @available(iOS 15.0, *)
     public static func object(from url: URL) async throws -> OGObject? {
         logger.trace("object(url:)")
