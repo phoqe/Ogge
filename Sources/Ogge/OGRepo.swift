@@ -23,4 +23,45 @@ public struct OGRepo {
 
         return try OGParser.parse(html: html)
     }
+
+    public static func object(from url: URL, completion: @escaping (Result<OGObject?, Error>) -> Void) {
+        logger.trace("object(url:completion:)")
+
+        session.dataTask(with: url) { data, res, error in
+            if let error = error {
+                logger.error("\(error.localizedDescription)")
+
+                completion(.failure(error))
+
+                return
+            }
+
+            logger.debug("no error")
+
+            guard let data = data,
+                  let html = String(data: data, encoding: .ascii) else {
+                      logger.error("no data or invalid html")
+
+                      completion(.success(nil))
+
+                      return
+                  }
+
+            logger.debug("valid html")
+
+            var object: OGObject?
+
+            do {
+                object = try OGParser.parse(html: html)
+            } catch {
+                logger.error("\(error.localizedDescription)")
+
+                completion(.failure(error))
+            }
+
+            logger.debug("valid object")
+
+            completion(.success(object))
+        }
+    }
 }
