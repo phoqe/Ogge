@@ -4,14 +4,23 @@ import OSLog
 
 // TODO: Remove SwiftSoup dependency.
 public struct OGParser {
+    /// A privately shared instance of a `JSONEncoder`.
+    /// Not for use outside of this class.
     private static let encoder: JSONEncoder = JSONEncoder()
+
+    /// A privately shared instance of a `JSONDecoder`.
+    /// Not for use outside of this class.
     private static let decoder: JSONDecoder = JSONDecoder()
 
-    @available(iOS 15.0, *)
+    /// Parses an HTML string and converts it into a reusable object.
+    ///
+    /// - Parameters:
+    ///    - html: Must be valid HTML. Ogge will try to parse any HTML you throw at it.
+    ///
+    /// - Returns: A reusable object containing the properties found in the HTML.
+    ///
     public static func parse(
-        html: String,
-        requireHead: Bool = false,
-        inferFromHTML: Bool = false
+        html: String
     ) throws -> OGObject? {
         let document: Document = try SwiftSoup.parse(html)
         let elements: Elements = try document.select("meta[property~=og:")
