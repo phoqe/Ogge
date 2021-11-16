@@ -14,7 +14,7 @@ class OGRepoTests: XCTestCase {
     }
 
     func testObjectResult() {
-        let object = OGRepo.object(from: MockData.exampleURL, completion: { res in
+        OGRepo.object(from: MockData.exampleURL, completion: { res in
             switch res {
             case .success(let object):
 
