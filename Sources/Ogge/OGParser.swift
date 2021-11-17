@@ -30,13 +30,14 @@ public struct OGParser {
             return nil
         }
 
-        // TODO: Add support for Open Graph arrays.
         var props: [String: [String]] = [:]
 
         for element in elements {
             let property = try element.attr("property")
             let content = try element.attr("content")
 
+            // Allow multiple keys to group in an array.
+            // Thereby supporting Open Graph arrays.
             if let existingProperty = props[property],
                let arrayProperty = existingProperty.first {
                 props[property] = [arrayProperty, content]
