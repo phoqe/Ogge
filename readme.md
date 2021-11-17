@@ -4,8 +4,9 @@ Ogge is a convenient and efficient Swift wrapper for the Open Graph Protocol.
 
 ## Motivation
 
-I built Ogge in parallel with a newsreader app for Hacker News called [Circino]().
-I use Ogge to fetch metadata from a URL and display the primary image of an article in the newsfeed.
+Ogge was built in parallel with a newsreader app.
+I wanted to fetch metadata from a URL and display the image of an article in the newsfeed.
+There was another great project, [OpenGraph](https://github.com/satoshi-takano/OpenGraph), but it didn’t meet my demands since I wanted the Open Graph properties returned as an object.
 
 ## Installation
 
@@ -21,7 +22,7 @@ You can use Ogge in multiple ways depending on the available data.
 
 ### URL
 
-Ogge can fetch HTML from a URL and parse it into an `OGObject`:
+`OGRepo` can fetch HTML from a URL and parse it into an `OGObject`:
 
 #### [`async/await`](https://docs.swift.org/swift-book/LanguageGuide/Concurrency.html)
 
@@ -50,7 +51,7 @@ OGRepo.object(from: url, completion: { result in
 
 ### HTML
 
-Ogge can parse HTML and parse it into an `OGObject`:
+`OGParser` can parse HTML and parse it into an `OGObject`:
 
 ```swift
 let html = """
