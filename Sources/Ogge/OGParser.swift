@@ -2,7 +2,7 @@ import Foundation
 import SwiftSoup
 import OSLog
 
-// TODO: Remove SwiftSoup dependency.
+/// A parser that can pares HTML containing Open Graph properties into a custom object.
 public struct OGParser {
     /// A privately shared instance of a `JSONEncoder`.
     /// Not for use outside of this class.
