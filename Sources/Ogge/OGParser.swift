@@ -33,19 +33,19 @@ public struct OGParser {
         var props: [String: [String]] = [:]
 
         for element in elements {
-            let property = try element.attr("property")
+            let prop = try element.attr("property")
             let content = try element.attr("content")
 
             // Allow multiple keys to group in an array.
             // Thereby supporting Open Graph arrays.
-            if let existingProperty = props[property],
-               let arrayProperty = existingProperty.first {
-                props[property] = [arrayProperty, content]
+            if let dupeProp = props[prop],
+               let dupeContent = dupeProp.first {
+                props[prop] = [dupeContent, content]
 
                 continue
             }
 
-            props[property] = [content]
+            props[prop] = [content]
         }
 
         // Avoid unnecessary coding operations.
