@@ -31,13 +31,20 @@ public struct OGParser {
         }
 
         // TODO: Add support for Open Graph arrays.
-        var props: [String: String] = [:]
+        var props: [String: [String]] = [:]
 
         for element in elements {
             let property = try element.attr("property")
             let content = try element.attr("content")
 
-            props[property] = content
+            if let existingProperty = props[property],
+               let arrayProperty = existingProperty.first {
+                props[property] = [arrayProperty, content]
+
+                continue
+            }
+
+            props[property] = [content]
         }
 
         // Avoid unnecessary coding operations.

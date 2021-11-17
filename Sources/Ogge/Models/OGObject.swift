@@ -15,7 +15,7 @@ public struct OGObject: Codable, Equatable {
     public var description: String? = nil
     public var determiner: String? = nil
     public var locale: String = "en_US"
-    public var alternateLocales: [String] = []
+    public var alternateLocales: [String]? = nil
     public var siteName: String? = nil
     public var video: URL? = nil
 
@@ -44,23 +44,20 @@ public struct OGObject: Codable, Equatable {
         let container = try decoder.container(keyedBy: CodingKeys.self)
 
         // Basic Metadata
-        title = try container.decodeIfPresent(String.self, forKey: .title)
-        type = try container.decodeIfPresent(String.self, forKey: .type)
-        image = try container.decodeIfPresent(URL.self, forKey: .image)
-        url = try container.decodeIfPresent(URL.self, forKey: .url)
+        title = try container.decodeIfPresent([String].self, forKey: .title)?.first
+        type = try container.decodeIfPresent([String].self, forKey: .type)?.first
+        image = try container.decodeIfPresent([URL].self, forKey: .image)?.first
+        url = try container.decodeIfPresent([URL].self, forKey: .url)?.first
 
         // Optional Metadata
-        audio = try container.decodeIfPresent(URL.self, forKey: .audio)
-        description = try container.decodeIfPresent(String.self, forKey: .description)
-        determiner = try container.decodeIfPresent(String.self, forKey: .determiner)
-        locale = try container.decodeIfPresent(String.self, forKey: .locale) ?? locale
+        audio = try container.decodeIfPresent([URL].self, forKey: .audio)?.first
+        description = try container.decodeIfPresent([String].self, forKey: .description)?.first
+        determiner = try container.decodeIfPresent([String].self, forKey: .determiner)?.first
+        locale = try container.decodeIfPresent([String].self, forKey: .locale)?.first ?? locale
+        alternateLocales = try container.decodeIfPresent([String].self, forKey: .alternateLocales)
 
-        if let alternateLocales = try container.decodeIfPresent(String.self, forKey: .alternateLocales) {
-            self.alternateLocales.append(alternateLocales)
-        }
-
-        siteName = try container.decodeIfPresent(String.self, forKey: .siteName)
-        video = try container.decodeIfPresent(URL.self, forKey: .video)
+        siteName = try container.decodeIfPresent([String].self, forKey: .siteName)?.first
+        video = try container.decodeIfPresent([URL].self, forKey: .video)?.first
     }
 
     public init(
@@ -75,7 +72,7 @@ public struct OGObject: Codable, Equatable {
         description: String? = nil,
         determiner: String? = nil,
         locale: String? = "en_US",
-        alternateLocales: [String] = [],
+        alternateLocales: [String]? = nil,
         siteName: String? = nil,
         video: URL? = nil
     ) {
