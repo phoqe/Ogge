@@ -1,8 +1,8 @@
 import Foundation
 import SwiftSoup
-import OSLog
 
 /// A parser that can pares HTML containing Open Graph properties into a custom object.
+/// The parser uses SwiftSoup internally to process the HTML.
 public struct OGParser {
     /// A privately shared instance of a `JSONEncoder`.
     /// Not for use outside of this class.
@@ -13,6 +13,8 @@ public struct OGParser {
     private static let decoder: JSONDecoder = JSONDecoder()
 
     /// Parses an HTML string and converts it into a reusable object.
+    /// It uses SwiftSoup to parse the HTML and will try to find Open Graph properties regardless of them being within `<head>`.
+    /// In the future, there may come an option to strictly adhere to the Open Graph specification.
     ///
     /// - Parameters:
     ///    - html: Must be valid HTML. Ogge will try to parse any HTML you throw at it.
@@ -25,11 +27,13 @@ public struct OGParser {
         let document: Document = try SwiftSoup.parse(html)
         let elements: Elements = try document.select("meta[property~=og:")
 
-        // Don't waste any more resources.
+        // Don't waste any more time.
         if elements.isEmpty() {
             return nil
         }
 
+        // All props are arrays in the parser since dictionaries can't hold duplicate keys.
+        // Custom objects are not used as a value since such dictionaries don't conform to `Codable`.
         var props: [String: [String]] = [:]
 
         for element in elements {
@@ -53,7 +57,10 @@ public struct OGParser {
             return nil
         }
 
+        // Encode to a data object. Might be unnecessary but required for `Codable` objects.
         let data = try encoder.encode(props)
+
+        // The object returned has picked values from the array values.
         let object = try decoder.decode(OGObject.self, from: data)
 
         return object

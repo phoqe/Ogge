@@ -22,6 +22,6 @@ class OGParserTests: XCTestCase {
         let object = try OGParser.parse(html: MockProp.basicAndOptional)
         let mockObject = MockObject.basicAndOptional
 
-        XCTAssertEqual(object, MockObject.basicAndOptional)
+        XCTAssertEqual(object, mockObject)
     }
 }

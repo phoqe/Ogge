@@ -1,6 +1,9 @@
 import Foundation
 import OSLog
 
+/// The `OGRepo` contain static methods for retrieving HTML from a URL.
+/// You can customize the `URLSession` it uses by querying `session`.
+/// The repo supports `async/await` as well as the `Result` API.
 public struct OGRepo {
     /// A shared `URLSession` Ogge uses to fetch HTML from URLs.
     /// The default `requestCachePolicy` is `returnCacheDataElseLoad`.
@@ -16,7 +19,9 @@ public struct OGRepo {
     /// Fetches the HTML as a string from the URL to parse it and finally convert it to a reusable Open Graph object.
     ///
     /// - Parameters:
-    ///    - url:
+    ///    - url: URL to fetch HTML from. Should contain Open Graph properties but no biggie if it doesn't.
+    ///
+    /// - Throws: The method throws when it can't fetch or convert the HTML.
     ///
     /// - Returns: The Open Graph properties compiled into a reusable object.
     ///
@@ -34,8 +39,8 @@ public struct OGRepo {
     /// Fetches the HTML as a string from the URL to parse it and finally convert it to a reusable Open Graph object.
     ///
     /// - Parameters:
-    ///    - url:
-    ///    - completion:
+    ///    - url: URL to fetch HTML from. Should contain Open Graph properties but no biggie if it doesn't.
+    ///    - completion: Completion handler for handling the error and value.
     ///
     /// - Returns: The Open Graph properties compiled into a reusable object.
     ///
