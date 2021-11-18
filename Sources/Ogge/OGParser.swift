@@ -36,6 +36,8 @@ public struct OGParser {
         // Custom objects are not used as a value since such dictionaries don't conform to `Codable`.
         var props: [String: [String]] = [:]
 
+        props.reserveCapacity(elements.count)
+
         for element in elements {
             let prop = try element.attr("property")
             let content = try element.attr("content")
