@@ -1,13 +1,14 @@
 # Ogge
 
 Ogge is a convenient and efficient Swift wrapper for the Open Graph Protocol.
+It was created in parallel with a newsreader app to fetch an image from an article.
 
 ## Installation
 
 Ogge is available as a Swift Package:
 
 ```swift
-.package(url: "https://github.com/phoqe/Ogge.git", from: "master")
+.package(url: "https://github.com/phoqe/Ogge.git", .branch("master"))
 ```
 
 ## Usage
@@ -16,7 +17,7 @@ You can use Ogge in multiple ways depending on the available data.
 
 ### URL
 
-`OGRepo` can fetch HTML from a URL and parse it into an `OGObject`:
+[`OGRepo`](Sources/Ogge/OGRepo.swift) can fetch HTML from a URL and parse it into an [`OGObject`](Sources/Ogge/Models/OGObject.swift):
 
 #### [`async/await`](https://docs.swift.org/swift-book/LanguageGuide/Concurrency.html)
 
@@ -45,7 +46,7 @@ OGRepo.object(from: url, completion: { result in
 
 ### HTML
 
-`OGParser` can parse HTML and parse it into an `OGObject`:
+[`OGParser`](Sources/Ogge/OGParser.swift) can parse HTML and parse it into an [`OGObject`](Sources/Ogge/Models/OGObject.swift):
 
 ```swift
 let html = """
