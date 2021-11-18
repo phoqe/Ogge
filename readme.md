@@ -2,12 +2,6 @@
 
 Ogge is a convenient and efficient Swift wrapper for the Open Graph Protocol.
 
-## Motivation
-
-Ogge was built in parallel with a newsreader app.
-I wanted to fetch metadata from a URL and display the image of an article in the newsfeed.
-There was another great project, [OpenGraph](https://github.com/satoshi-takano/OpenGraph), but it didn’t meet my demands since I wanted the Open Graph properties returned as an object.
-
 ## Installation
 
 Ogge is available as a Swift Package:
